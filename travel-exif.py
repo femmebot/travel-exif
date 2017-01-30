@@ -92,15 +92,11 @@ def getplace(lat, lon):
     url += "latlng=%s,%s&sensor=false" % (lat, lon)
     v = urlopen(url).read()
     v = v.decode("utf-8")
-    # print (url)
-    # print (v)
-    # j = {}
     j = json.loads(v)
-    # print (j)
 
     # check status code is OK, not OVER_QUERY_LIMIT
     result_status = j['status']
-    print (result_status)
+    # print (result_status)
 
     if result_status == 'OK':
         components = j['results'][0]['address_components']
@@ -136,4 +132,4 @@ if __name__ == "__main__":
             country = (getplace((lat),(lon)))[1]
             print (img_filename + ", " + city + ", " + country)
             f.write(img_filename + ", " + city + ", " + country + "\n")
-f.close()
+    f.close()
