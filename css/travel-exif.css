@@ -1,0 +1,52 @@
+body, p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Overpass Mono', monospace;
+}
+header {
+  height: 120px;
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+  z-index: 999;
+  /*border: 1px solid #f00;*/
+}
+nav {
+  height: 60px;
+  background-color: #272727;
+  width: 100%;
+  overflow: hidden;
+}
+.wrapper {
+  margin: 0 auto;
+  padding: 0;
+  background-color: #fcf6ed;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+  text-align: left;
+  /*border: 1px solid #f00;*/
+  overflow: hidden;
+}
+.container-fluid {
+  width: 100%;
+  background-color: #fcf6ed;
+  position: relative;
+  padding-top: 120px;
+}
+header .container p {
+  padding: 36px 0 16px 0;
+  font-size: 12px;
+  color: #272727;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+section {
+  position: relative;
+  padding: 300px 0;
+}
