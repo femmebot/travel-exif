@@ -22,7 +22,7 @@ nav {
 }
 
 header .container p {
-  padding: 36px 12px 16px 12px;
+  padding: 30px 12px 0 12px;
   font-size: 12px;
   color: #272727;
   text-transform: uppercase;
@@ -32,12 +32,12 @@ section {
   position: relative;
   font-size: 12px;
   color: #272727;
-  padding: 10px 0 120px 0;
+  padding: 0 0 60px 0;
   z-index: 10;
 }
 .wrapper {
   margin: 0 auto;
-  padding: 0;
+  padding: 0 0 360px 0;
   background-color: #fcf6ed;
   position: relative;
   text-align: center;
