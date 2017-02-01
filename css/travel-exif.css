@@ -1,4 +1,4 @@
-body, p {
+body, p, ul, li {
   margin: 0;
   padding: 0;
   font-family: 'Overpass Mono', monospace;
@@ -9,7 +9,8 @@ header {
   width: 100%;
   overflow: hidden;
   text-align: left;
-  z-index: 999;
+  z-index: 1000;
+  background-color: #fcf6ed;
   /*border: 1px solid #f00;*/
 }
 nav {
@@ -17,6 +18,22 @@ nav {
   background-color: #272727;
   width: 100%;
   overflow: hidden;
+  z-index: 999;
+}
+
+header .container p {
+  padding: 36px 12px 16px 12px;
+  font-size: 12px;
+  color: #272727;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+section {
+  position: relative;
+  font-size: 12px;
+  color: #272727;
+  padding: 10px 0 120px 0;
+  z-index: 10;
 }
 .wrapper {
   margin: 0 auto;
@@ -39,14 +56,33 @@ nav {
   position: relative;
   padding-top: 120px;
 }
-header .container p {
-  padding: 36px 0 16px 0;
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+section ul.flex-container {
+  max-width: 640px;
+  margin-left: 320px;
+  list-style: none;
+}
+section ul.flex-container li img {
+  max-width: 135px;
+  margin: 0 12px 12px 12px;
+}
+section ul.flex-container li p {
+  margin: 0 12px;
+  width: 135px;
+  margin-bottom: 30px;
+  color: #272727;
+}
+.section-title {
+  width: 296px;
+  margin: 0 12px;
+  border-top: 1px solid #272727;
   font-size: 12px;
   color: #272727;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-}
-section {
-  position: relative;
-  padding: 300px 0;
+  float: left;
+  padding-top: 12px;
 }

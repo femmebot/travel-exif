@@ -5,6 +5,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 from urllib.request import urlopen
 
+dir_name = "img"
 
 def imgList(foldername, fulldir = True, suffix=".jpg"):
     """Returns list of jpg files in directory"""
@@ -111,7 +112,11 @@ def getplace(lat, lon):
         # return town, city, country
         return city, country
 
-
+def writeHTML():
+        f.write("<li>" + "\n")
+        f.write("    <img src='" + img_filename + "'>" + "\n")
+        f.write("    <p>" + city + ", " + country + "</p>" + "\n")
+        f.write("</li>" + "\n")
 
 
 ####################
@@ -119,8 +124,8 @@ def getplace(lat, lon):
 ####################
 
 if __name__ == "__main__":
-    f = open("photos.txt", "w")
-    for img_filename in imgList("./images"):
+    f = open(dir_name+".html", "w")
+    for img_filename in imgList("./" + dir_name):
         fp = open(img_filename, "rb")
         im = Image.open(fp)
         exif_data = get_exif_data(im)
@@ -131,5 +136,6 @@ if __name__ == "__main__":
             city = (getplace((lat),(lon)))[0]
             country = (getplace((lat),(lon)))[1]
             print (img_filename + ", " + city + ", " + country)
-            f.write(img_filename + ", " + city + ", " + country + "\n")
+            # f.write(img_filename + ", " + city + ", " + country + "\n")
+            writeHTML()
     f.close()
