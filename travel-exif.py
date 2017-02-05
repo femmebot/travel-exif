@@ -124,7 +124,7 @@ def getplace(lat, lon):
 def writeHTML():
         f.write("<li>" + "\n")
         f.write("    <img src='" + img_filename + "'>" + "\n")
-        if route is not None:
+        if route:
             f.write("    <p>" + route + ", " + city + ", " + country + "</p>" + "\n")
         else:
             f.write("    <p>" + city + ", " + country + "</p>" + "\n")
@@ -147,15 +147,13 @@ if __name__ == "__main__":
         img_filename = img_filename.strip("./")
         lat = get_lat_lon(exif_data)[0]
         lon = get_lat_lon(exif_data)[1]
-        if lat != None and lon != None:
+        if lat and lon:
             route = (getplace((lat),(lon)))[0]
             city = (getplace((lat),(lon)))[1]
             country = (getplace((lat),(lon)))[2]
-            if route is not None:
+            if route:
                 print (img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country)
                 doc.write(img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country + "\n")
-            else:
-                print (route)
 
             writeHTML()
 
