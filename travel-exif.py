@@ -144,7 +144,7 @@ if __name__ == "__main__":
         fp = open(img_filename, "rb")
         im = Image.open(fp)
         exif_data = get_exif_data(im)
-        img_filename = img_filename.lstrip("./")
+        img_filename = img_filename.lstrip("./").replace(dir_name+"/", "")
         lat = get_lat_lon(exif_data)[0]
         lon = get_lat_lon(exif_data)[1]
         if lat and lon:
@@ -152,8 +152,8 @@ if __name__ == "__main__":
             city = (getplace((lat),(lon)))[1]
             country = (getplace((lat),(lon)))[2]
             if route:
-                print (img_filename.replace(dir_name+"/", "") + ", Route: " + route + ", City: "+ city + ", Country: " + country)
-                doc.write("Image: " + img_filename.replace(dir_name+"/", "") + ", Route: " + route + ", City: "+ city + ", Country: " + country + "\n")
+                print (img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country)
+                doc.write("Image: " + img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country + "\n")
 
             writeHTML()
 
