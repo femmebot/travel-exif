@@ -6,7 +6,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 from urllib.request import urlopen
 
-dir_name = "img"
+dir_name = "img/Bergen 2015"
 
 def imgList(foldername, fulldir = True, suffix=".jpg"):
     """Returns list of jpg files in directory"""
@@ -109,8 +109,13 @@ def getplace(lat, lon):
         components = j['results'][0]['address_components']
         route = area = city = country = None
         for c in components:
+<<<<<<< HEAD
             # if "route" in c['types']:
             #     route = c['long_name']
+=======
+            if "route" in c['types']:
+                route = c['long_name']
+>>>>>>> 0871e9b80228699cf40216280beee7eab748e354
             if "locality" in c['types']:
                 route = c['long_name']
             # if "locality" in c['types']:
@@ -119,6 +124,11 @@ def getplace(lat, lon):
                 city = c['long_name']
             if "country" in c['types']:
                 country = c['long_name']
+<<<<<<< HEAD
+=======
+        # return town, city, country
+        # print ("route: " + route + " city: " + city + " country: " + country)
+>>>>>>> 0871e9b80228699cf40216280beee7eab748e354
         return route, city, country
 
 def writeHTML():
@@ -153,10 +163,16 @@ if __name__ == "__main__":
             country = (getplace((lat),(lon)))[2]
             if route is not None:
                 print (img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country)
+<<<<<<< HEAD
                 doc.write(img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country + "\n")
             else:
                 print (route)
 
+=======
+            else:
+                print (route)
+            # f.write(img_filename + ", " + city + ", " + country + "\n")
+>>>>>>> 0871e9b80228699cf40216280beee7eab748e354
             writeHTML()
 
     f.close()
