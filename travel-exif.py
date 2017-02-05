@@ -1,5 +1,6 @@
 import os
 import json
+import time
 
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -86,14 +87,19 @@ def get_lat_lon(exif_data):
 
     return lat, lon
 
+def delay():
+    time.sleep(.1)
 
 def getplace(lat, lon):
     """Determines city, country from lat, long"""
     url = "http://maps.googleapis.com/maps/api/geocode/json?"
     url += "latlng=%s,%s&sensor=false" % (lat, lon)
+    # print (url)
     v = urlopen(url).read()
     v = v.decode("utf-8")
     j = json.loads(v)
+
+    delay()
 
     # check status code is OK, not OVER_QUERY_LIMIT
     result_status = j['status']
@@ -101,21 +107,27 @@ def getplace(lat, lon):
 
     if result_status == 'OK':
         components = j['results'][0]['address_components']
-        country = city = town = None
+        route = area = city = country = None
         for c in components:
+            # if "route" in c['types']:
+            #     route = c['long_name']
+            if "locality" in c['types']:
+                route = c['long_name']
+            # if "locality" in c['types']:
+            #     city = c['long_name']
+            if "administrative_area_level_1" in c['types']:
+                city = c['long_name']
             if "country" in c['types']:
                 country = c['long_name']
-            if "locality" in c['types']:
-                city = c['long_name']
-            # if "postal_town" in c['types']:
-            #     town = c['long_name']
-        # return town, city, country
-        return city, country
+        return route, city, country
 
 def writeHTML():
         f.write("<li>" + "\n")
         f.write("    <img src='" + img_filename + "'>" + "\n")
-        f.write("    <p>" + city + ", " + country + "</p>" + "\n")
+        if route is not None:
+            f.write("    <p>" + route + ", " + city + ", " + country + "</p>" + "\n")
+        else:
+            f.write("    <p>" + city + ", " + country + "</p>" + "\n")
         f.write("</li>" + "\n")
 
 
@@ -124,7 +136,10 @@ def writeHTML():
 ####################
 
 if __name__ == "__main__":
+
     f = open(dir_name+".html", "w")
+    doc = open(dir_name+".txt", "w")
+
     for img_filename in imgList("./" + dir_name):
         fp = open(img_filename, "rb")
         im = Image.open(fp)
@@ -133,9 +148,16 @@ if __name__ == "__main__":
         lat = get_lat_lon(exif_data)[0]
         lon = get_lat_lon(exif_data)[1]
         if lat != None and lon != None:
-            city = (getplace((lat),(lon)))[0]
-            country = (getplace((lat),(lon)))[1]
-            print (img_filename + ", " + city + ", " + country)
-            # f.write(img_filename + ", " + city + ", " + country + "\n")
+            route = (getplace((lat),(lon)))[0]
+            city = (getplace((lat),(lon)))[1]
+            country = (getplace((lat),(lon)))[2]
+            if route is not None:
+                print (img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country)
+                doc.write(img_filename + ", Route: " + route + ", City: "+ city + ", Country: " + country + "\n")
+            else:
+                print (route)
+
             writeHTML()
+
     f.close()
+    doc.close()
