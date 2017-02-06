@@ -1,5 +1,5 @@
 
-Requires Python3, PIP, and installing the following modules:
+Requires Python3, PIP, and installation of the following modules:
 
 `$ pip install Pillow`  
 
