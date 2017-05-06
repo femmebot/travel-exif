@@ -123,7 +123,7 @@ def getplace(lat, lon):
 
 def writeHTML():
         f.write("<li>" + "\n")
-        f.write("    <img src='" + img_filename + "'>" + "\n")
+        f.write("    <img src ='" + dir_name + "/" + img_filename + "'>" + "\n")
         if route:
             f.write("    <p>" + route + ", " + city + ", " + country + "</p>" + "\n")
         else:
